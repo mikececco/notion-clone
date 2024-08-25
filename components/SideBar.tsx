@@ -1,3 +1,5 @@
+'use client'
+
 import { MenuIcon } from "lucide-react"
 import NewDocumentButton from "./NewDocumentButton"
 import {
@@ -8,10 +10,25 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { useUser } from "@clerk/nextjs"
+import { collectionGroup, query, where } from "firebase/firestore"
+import { db } from "@/firebase"
 
 
 
 function SideBar() {
+  const {user} = useUser() //from clerk
+
+  const [data, loading, error] = useCollection(
+    user &&
+      //collection group to check if room corresponds to userId - connect entries with index (done in Firestore)
+      query(
+        collectionGroup(db, 'rooms'),
+        where('userId', '==', user.emailAddresses[0].toString())
+      )
+    )
+
 
   const menuOptions = (
     <>
