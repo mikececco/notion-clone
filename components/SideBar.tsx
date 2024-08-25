@@ -26,7 +26,7 @@ interface RoomDocument extends DocumentData {
 
 function SideBar() {
   const {user} = useUser() //from clerk
-  const [grouped, setGroupedData] = useState<{
+  const [groupedData, setGroupedData] = useState<{
     owner: RoomDocument[];
     editor: RoomDocument[];
   }>({
@@ -73,7 +73,7 @@ function SideBar() {
     )
 
     setGroupedData(grouped)
-  
+
   }, [data])
 
 
@@ -82,6 +82,22 @@ function SideBar() {
     <>
       <NewDocumentButton/>
       {/* My documents */}
+      {groupedData.owner.length === 0 ? (
+        <h2 className="text-gray-500 font-semibold text-sm">
+          No documents found
+        </h2>
+      ) : (
+        <>
+          <h2 className="text-gray-500 font-semibold text-sm">
+            My Documents
+          </h2>
+          {groupedData.owner.map((doc) => (
+            <p key={doc.id}>{doc.roomId}</p>
+            // <SideBarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
+          ))}
+        </>
+      )
+      }
       {/* List */}
 
       {/* Shared with me */}
