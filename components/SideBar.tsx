@@ -82,22 +82,25 @@ function SideBar() {
     <>
       <NewDocumentButton/>
       {/* My documents */}
-      {groupedData.owner.length === 0 ? (
-        <h2 className="text-gray-500 font-semibold text-sm">
-          No documents found
-        </h2>
-      ) : (
-        <>
+      <div className="flex py-4 flex-col space-y-4 md:max-w-36">
+        {groupedData.owner.length === 0 ? (
           <h2 className="text-gray-500 font-semibold text-sm">
-            My Documents
+            No documents found
           </h2>
-          {groupedData.owner.map((doc) => (
-            <p key={doc.id}>{doc.roomId}</p>
-            // <SideBarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
-          ))}
-        </>
-      )
-      }
+          ) : (
+            <>
+              <h2 className="text-gray-500 font-semibold text-sm">
+                My Documents
+              </h2>
+              {groupedData.owner.map((doc) => (
+                <p key={doc.id}>{doc.roomId}</p>
+                // <SideBarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
+              ))}
+            </>
+          )
+        }
+      </div>
+
       {/* List */}
 
       {/* Shared with me */}
