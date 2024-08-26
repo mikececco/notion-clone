@@ -15,6 +15,7 @@ import { useUser } from "@clerk/nextjs"
 import { collectionGroup, DocumentData, query, where } from "firebase/firestore"
 import { db } from "@/firebase"
 import { useEffect, useState } from "react"
+import SideBarOption from "./SideBarOption"
 
 interface RoomDocument extends DocumentData {
   createdAt: string;
@@ -93,8 +94,8 @@ function SideBar() {
                 My Documents
               </h2>
               {groupedData.owner.map((doc) => (
-                <p key={doc.id}>{doc.roomId}</p>
-                // <SideBarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
+                // <p key={doc.id}>{doc.roomId}</p>
+                <SideBarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`}/>
               ))}
             </>
           )
