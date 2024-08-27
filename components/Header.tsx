@@ -2,6 +2,7 @@
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"
 import { useUser } from "@clerk/nextjs"
+import BreadCrumbs from "./BreadCrumbs"
 
 function Header() {
 
@@ -14,6 +15,7 @@ function Header() {
       )}
 
       {/* BREADCRUMB */}
+      <BreadCrumbs />
 
       <div>
         <SignedOut>
