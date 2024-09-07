@@ -1,3 +1,4 @@
+import RoomProvider from "@/components/RoomProvider"
 import { auth } from "@clerk/nextjs/server"
 import React from "react"
 
@@ -14,7 +15,7 @@ function DocLayout({
 
 
   return (
-    <div>{children}</div>
+    <RoomProvider roomId={id}>{children}</RoomProvider>
   )
 }
 
