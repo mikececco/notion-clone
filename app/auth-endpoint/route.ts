@@ -15,10 +15,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User email not found" }, { status: 400 });
     }
 
-    console.log('SESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSION')
-    console.log(sessionClaims)
-    console.log(sessionClaims.email)
-
     // Prepare session for USER and combine it with user info from clerk
     const session = liveblocks.prepareSession(sessionClaims.email, {
       userInfo: {
