@@ -33,7 +33,7 @@ function Document({id}:  {id: string}) {
   }
 
   return (
-    <div>
+    <div className="flex-1 h-full bg-white">
       <div className="flex max-w-6xl mx-auto justify-between pb-5">
         <form className="flex space-x-2 flex-1" onSubmit={updateTitle}>
           {/* Update title */}
