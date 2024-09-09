@@ -14,6 +14,7 @@ import { useState, useTransition } from "react"
 import { Button } from "./ui/button"
 import { usePathname, useRouter } from "next/navigation"
 import { deleteDocument } from "@/actions/actions"
+import { toast } from "sonner"
 
 
 function DeleteDocument() {
@@ -36,9 +37,9 @@ function DeleteDocument() {
       if (success) {
         setIsOpen(false);
         router.replace("/"); //redirect to homepage
-        // toast.success("Room Deleted successfully!");
+        toast.success("Room Deleted successfully!");
       } else {
-        // toast.error("Failed to delete room!");
+        toast.error("Failed to delete room!");
       }
     })
   }
