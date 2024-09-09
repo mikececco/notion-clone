@@ -1,6 +1,7 @@
 'use server'
 
 import { adminDb } from "@/firebase-admin"
+import liveblocks from "@/lib/liveblocks"
 import { auth } from "@clerk/nextjs/server"
 
 export async function createNewDocument() {
@@ -27,4 +28,36 @@ export async function createNewDocument() {
   })
 
   return {docId: docRef.id}
+}
+
+export async function deleteDocument(roomId: string) {
+  auth().protect()
+
+  console.log(roomId);
+
+  try {
+
+    await adminDb.collection('documents').doc(roomId).delete() //delete roomId on server
+
+    const query = await adminDb.collectionGroup('rooms').where('roomId', '==', roomId).get() //retrieve roomId attached to all users
+
+    const batch = adminDb.batch()
+
+    query.docs.forEach((doc) => { //delete in bulk all references to room aka document
+      batch.delete(doc.ref)
+    })
+
+    await batch.commit() //execute command
+
+    await liveblocks.deleteRoom(roomId) //delete room in liveblocks
+
+    return {success: true}
+
+  } catch (error) {
+
+    console.log(error);
+    return {success: false}
+
+  }
+
 }
