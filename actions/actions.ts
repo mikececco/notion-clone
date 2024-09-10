@@ -61,3 +61,29 @@ export async function deleteDocument(roomId: string) {
   }
 
 }
+
+export async function inviteUserToRoom(roomId: string, email: string) {
+  auth().protect()
+
+  console.log(roomId, email);
+
+  try {
+
+    await adminDb.collection('users').doc(email).collection('rooms').doc(roomId).set({
+      userId: email,
+      role: 'editor',
+      createdAt: new Date(),
+      roomId
+    }) //attach room to user
+
+
+    return {success: true}
+
+  } catch (error) {
+
+    console.log(error);
+    return {success: false}
+
+  }
+
+}

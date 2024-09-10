@@ -9,6 +9,7 @@ import { useDocumentData } from "react-firebase-hooks/firestore"
 import Editor from "./Editor"
 import useOwner from "../lib/useOwner"
 import DeleteDocument from "./DeleteDocument"
+import InviteUser from "./InviteUser"
 
 function Document({id}:  {id: string}) {
   const [data, loading, error] = useDocumentData(doc(db, 'documents', id))
@@ -38,7 +39,7 @@ function Document({id}:  {id: string}) {
 
   return (
     <div className="flex-1 h-full bg-white">
-      <div className="flex max-w-6xl mx-auto justify-between pb-5">
+      <div className="flex max-w-6xl mx-auto justify-between p-5">
         <form className="flex space-x-2 flex-1" onSubmit={updateTitle}>
           {/* Update title */}
           <Input
@@ -54,6 +55,7 @@ function Document({id}:  {id: string}) {
           { isOwner && (
             <>
             {/* Invite user */}
+              <InviteUser />
             {/* Delete document */}
               <DeleteDocument />
             </>
